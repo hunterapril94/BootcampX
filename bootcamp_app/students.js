@@ -11,9 +11,9 @@ const limit = process.argv[3]
 pool.query(`
 SELECT students.id AS student_id, students.name AS student_name, cohorts.name AS cohort_name
 FROM students JOIN cohorts on cohort_id = cohorts.id
-WHERE cohorts.name LIKE '${cohortName}%'
+WHERE cohorts.name LIKE $2
 LIMIT $1;
-`, [limit])
+`, [limit, `${cohortName}%`])
 .then(res => {
   console.log(res.rows);
 })
